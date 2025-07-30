@@ -34,13 +34,14 @@ function operate(string) {
 // const opSymbols_test = ['+', '-', '*', '/', '=', '.'];
 
 function checkValidity(string) {
-  let arr = string.split(" ");
+  const regexpFloat = /[+-]?([0-9]*[.])?[0-9]+/;
+  let arr = string.split(" ").filter(char => char.match(/\S/));
 
   if (opSymbols.includes(arr[1]) && 
-    (arr[0].match(/\d/) && arr[2].match(/\d/))) {
-    num1 = parseInt(arr[0]);
+    (arr[0].match(/\d/) && arr[2].match(regexpFloat))) {
+    num1 = parseFloat(arr[0]);
     operator = arr[1]
-    num2 = parseInt(arr[2]);
+    num2 = parseFloat(arr[2]);
     return true;
   } else {
     console.log("enter a valid operation in this format: # (operator) #");
