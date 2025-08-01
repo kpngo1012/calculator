@@ -1,9 +1,3 @@
-const container = document.querySelector(".container");
-const numPad = document.querySelector(".numbers");
-const operators = document.querySelector(".operators");
-const controls = document.querySelector(".controls");
-const display = document.querySelector(".display");
-const inputField = document.querySelector("#input");
 
 //numbers field
 for (let i = 0; i <= 9; i++) {
@@ -14,7 +8,6 @@ for (let i = 0; i <= 9; i++) {
 }
 
 // operator symbols
-const opSymbols = ['+', '-', '*', '/', '=', '.'];
 opSymbols.map(symbol => {
   const operator = document.createElement("button");
   operator.className = 'operator';
@@ -30,29 +23,22 @@ clearBtn.className = 'clear';
 clearBtn.textContent = 'clear';
 controls.appendChild(clearBtn);
 
-let stringQuery = "";
-
 // allows display to populate as you click the btn
 for (const child of container.children) {
-  // child.addEventListener("click", () => {
-  //   if ((child.child).className === 'clear') {
-  //     clearBtn.addEventListener("click", () => { 
-  //       inputField.value = ''});
-  //       stringQuery = "";
-  //     } else if (child.id === "equal") {
-  //       console.log(`Under child.id condition: ${inputField.value}`);
-  //       inputField.value = operate(inputField.value) + " ";
-  //       stringQuery = inputField.value;
-  //     } else {
-  //     inputField.value += child.textContent + ' ';
-  //     stringQuery = inputField.value;
-  //     console.log(`String Query: ${stringQuery}`);
-  //   }
-  // console.log(child);
   child.addEventListener("click", (e) => {
     let target = e.target;
   
     if (!target) return;
+
+    // if (checkValidity(stringQuery)) {
+    //         result = operate(stringQuery);
+    //         stringQuery = result;
+    //         inputField.value = result;
+    //         console.log(`StringQuery after operation: ${stringQuery};`)
+    //       } else {
+    //         console.log(`String not valid to be evaluated yet`);
+    //         // break;
+    //       }
     
     switch (target.className) {
       case 'clear':
@@ -60,17 +46,57 @@ for (const child of container.children) {
         stringQuery = "";
         break;
       case 'operator': {
-        if (target.id === "decimal") { inputField.value += target.textContent; stringQuery = inputField.value;}
-        else if (target.id === "equal") { inputField.value += operate(stringQuery); } //then reset the inputfield} 
-        else { inputField.value += ` ${target.textContent} `; stringQuery = inputField.value;}
-        break;
-        } 
-      case 'num': 
+        if (target.id === "decimal") {
+          inputField.value += target.textContent;
+          stringQuery = inputField.value;
+          break;
+        } else {
+          console.log(`TARGET.TEXTCONTENT IN OPERATOR: ${target.textContent}`);
+          console.log(`StringQuery before assignment: ${stringQuery}`);
+          console.log(`StringQuery length: ${stringQuery.length}`);
+          //do string length and validty check here
+              if (checkValidity(stringQuery)) {
+            result = operate(stringQuery);
+            stringQuery = result;
+            inputField.value = result;
+            console.log(`StringQuery after operation: ${stringQuery};`)
+          } else {
+            console.log(`String not valid to be evaluated yet`);
+            // break;
+          }
+
+
+          if (target.id === 'equal') {
+            ok = true; 
+            console.log(`ok: ${ok}`);
+            break; 
+          } 
+          inputField.value += ` ${target.textContent} `;
+          stringQuery = inputField.value;
+          console.log(`StringQuery after assignment: ${stringQuery}`);
+          break;
+          
+        }} 
+      case 'num': {
+          console.log(`TARGET.TEXTCONTENT IN NUMPAD: ${target.textContent}`);
+          console.log(`inputfiled.value in numpad: ${inputField.value}`);
+          console.log(`StringQuery before assignment in numpad: ${stringQuery}`);
+          console.log(`ok before condition: ${ok} & ${typeof ok}`);
+              if (checkValidity(stringQuery)) {
+            result = operate(stringQuery);
+            stringQuery = result;
+            inputField.value = result;
+            console.log(`StringQuery after operation: ${stringQuery};`)
+          } else {
+            console.log(`String not valid to be evaluated yet`);
+            // break;
+          }
+
         inputField.value += target.textContent;
         stringQuery = inputField.value;
+        console.log(`StringQuery after assignment when numbers are pressed: ${stringQuery}`);
         break;
-      
-    }
+    }}
   })
 };
 
