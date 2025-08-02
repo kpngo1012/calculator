@@ -1,0 +1,23 @@
+* {
+  /* margin: 0;
+  /* padding: 0;  */
+  box-sizing: border-box;
+  /* border: 1px solid #000; */
+}
+
+main {
+  width: 300px;
+}
+
+input {
+  margin: 10px;
+}
+
+.container {
+  width: 200px;
+  height: 200px;
+  margin-left: 10px;
+  display: flex; 
+  flex-direction: column;
+}
+
