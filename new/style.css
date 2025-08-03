@@ -6,15 +6,16 @@
 }
 
 main {
-  width: 300px;
+  width: 500px;
 }
 
 input {
+  width: 322px;
   margin: 10px;
 }
 
 .container {
-  width: 200px;
+  width: 500px;
   height: 200px;
   margin-left: 10px;
   display: flex; 

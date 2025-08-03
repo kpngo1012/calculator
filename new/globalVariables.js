@@ -1,8 +1,6 @@
-let num1, num2, operator;
-let stringQuery;
-let ok = false;
-let result;
-let text = "";
+let num1, num2, operator, stringQuery, prevResult, text;
+let ok = false; //check if user presses number after displaying result from "="
+let expObj = {};
 
 const regexpFloat = /[+-]?([0-9]*[.])?[0-9]+/; //regular expression to check for decimals
 const opSymbols = ['+', '-', '*', '/'];

@@ -48,8 +48,10 @@ function checkEmptiness(inputfield) {
 
 //07.GET THE LAST ELEMENT FROM AN ARRAY
 function checkDecimal(string) {
-  let arr = string.split(" ");
-  return (arr[arr.length - 1].includes(".")) ? true : false;
+  let arr = string.trim().split(" ");
+  let last = arr[arr.length-1];
+  console.log(`Array: ${arr} | Length: ${arr.length} | Last Element: ${last}`);
+  return (last.includes(".") || opSymbols.includes(last)) ? true : false;
 }
 
 //08.ATTACH EVENT LISTENERS
@@ -68,9 +70,10 @@ for (const child of container.children) {
         if (checkEmptiness(inputField.value)) {
           displayError(text);
           break;
-        } else { //needs to make the calculator work now
+        } else { 
+        inputField.value = evaluate(inputField.value, target.textContent);
         inputField.value += ` ${target.textContent} `;
-        result = evaluate(inputField.value);
+        ok = false;
         break; 
         }} 
       case 'modify': {
@@ -83,11 +86,16 @@ for (const child of container.children) {
               inputField.value += target.textContent;
               break;
             case 'equal':
+              console.log(`InputField after user presses '=': ${inputField.value}`);
+              inputField.value = evaluate(inputField.value, target.textContent);
+              ok = true;
               break;
         }} break; }
       case 'num': {
         let errorMsg = errorField.firstChild;
         if (errorMsg) errorField.removeChild(errorMsg);
+
+        if (ok) inputField.value = ""; ok = false;
         inputField.value += target.textContent;
         break;
       }
